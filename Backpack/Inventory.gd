@@ -31,23 +31,8 @@ func _ready():
 			button.set_size(Vector2(64,64))
 			var label = Label.new()
 			button.add_child(label)
-			if backpack[x][y] == null and not x == items_v-1 and not y == items_h-1:
-				test_gen_random_stuff(button)
 			add_child(button)
 	pass
-
-func test_gen_random_stuff(button):
-	randomize()
-	button.modulate = Color(rand_range(0,1),rand_range(0,1),rand_range(0,1),1)
-	var gen = int(rand_range(0,3))
-	match gen:
-		1:
-			button.texture_normal = load("res://icon.png")
-			var size_x = round(rand_range(1,2))
-			var size_y = round(rand_range(1,2))
-			button.set_scale(Vector2(size_x,size_y))
-			button.size = Vector2(size_x,size_y)
-			process_filled_up_grids(button.index,button.size,true)
 
 func pos_to_index(y,x):
 	return y + (x*items_h)

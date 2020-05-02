@@ -4,11 +4,6 @@ var items_v = 20
 var items_h = 10
 var backpack = []
 
-#func _process(delta):
-	#for x in range(0,items_v):
-	#	for y in range(0,items_h):
-	#		get_child(pos_to_index(y,x)).get_child(0).set_text(str(backpack[x][y]))
-
 func _ready():
 	get_parent().get_node("grid").set_size(Vector2(items_v*64,items_h*64))
 	get_parent().get_node("grid").set_position(Vector2(items_v*64*-0.5,items_h*64*-0.5))
@@ -16,8 +11,6 @@ func _ready():
 	for i in range(0,items_v):
 		backpack[i] = []
 		backpack[i].resize(items_h)
-	#print(backpack)
-#	set_columns(items_v)
 	set_position(Vector2(items_v*64*-0.5,items_h*64*-0.5))
 	for x in range(0,items_v):
 		for y in range(0,items_h):

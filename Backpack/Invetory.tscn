@@ -4,7 +4,7 @@
 [ext_resource path="res://Backpack/MouseCurso.gd" type="Script" id=2]
 [ext_resource path="res://Backpack/Inventory.gd" type="Script" id=3]
 
-[node name="Node2D" type="Node2D"]
+[node name="BackPack" type="Node2D"]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true

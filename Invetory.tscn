@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://MouseCurso.gd" type="Script" id=1]
-[ext_resource path="res://Inventory.gd" type="Script" id=2]
+[ext_resource path="res://icon.png" type="Texture" id=1]
+[ext_resource path="res://MouseCurso.gd" type="Script" id=2]
+[ext_resource path="res://Inventory.gd" type="Script" id=3]
 
 [node name="Node2D" type="Node2D"]
 
@@ -11,9 +12,17 @@ current = true
 [node name="Inventory" type="Node2D" parent="."]
 scale = Vector2( 0.5, 0.5 )
 
+[node name="grid" type="TextureRect" parent="Inventory"]
+modulate = Color( 0, 0, 0, 0.25098 )
+margin_right = 64.0
+margin_bottom = 64.0
+texture = ExtResource( 1 )
+stretch_mode = 2
+
 [node name="MouseCurso" type="Sprite" parent="Inventory"]
-script = ExtResource( 1 )
+script = ExtResource( 2 )
 
 [node name="GridContainer" type="Node2D" parent="Inventory"]
-script = ExtResource( 2 )
+position = Vector2( -480, -256 )
+script = ExtResource( 3 )
 

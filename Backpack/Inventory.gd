@@ -67,6 +67,14 @@ func check_override(index,m_size):
 		#print('return')
 	else:
 		return false
+		
+
+func spawn_item(size,texture_normal,_modulate):
+	if get_parent().get_node("MouseCurso").texture == null:
+		get_parent().get_node("MouseCurso").size = size
+		get_parent().get_node("MouseCurso").set_scale(size)
+		get_parent().get_node("MouseCurso").texture = load("res://Item/texts/" + texture_normal+ ".png")
+		get_parent().get_node("MouseCurso").modulate = _modulate
 
 func on_button_down(index,size):
 	#print(index, "  " ,size)

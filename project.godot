@@ -16,7 +16,7 @@ _global_script_class_icons={
 [application]
 
 config/name="BackPack"
-run/main_scene="res://Invetory.tscn"
+run/main_scene="res://Backpack/Invetory.tscn"
 config/icon="res://icon.png"
 
 [display]

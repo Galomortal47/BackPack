@@ -16,13 +16,13 @@ func _ready():
 	for i in range(0,items_v):
 		backpack[i] = []
 		backpack[i].resize(items_h)
-	print(backpack)
+	#print(backpack)
 #	set_columns(items_v)
 	set_position(Vector2(items_v*64*-0.5,items_h*64*-0.5))
 	for x in range(0,items_v):
 		for y in range(0,items_h):
 			var button = TextureButton.new()
-			button.set_script(load('res://TextureButton.gd'))
+			button.set_script(load('res://Backpack/TextureButton.gd'))
 			button.set_position(Vector2(x*64,y*64))
 			button.index = pos_to_index(y,x)
 			#print(button.index)
@@ -72,7 +72,7 @@ func process_filled_up_grids(index,size,remove_add):
 			for a in range(x,x+size.x):
 				for b in range(y,y+size.y):
 					backpack[a][b] = null
-					print(a, " " ,b, " ", index)
+					#print(a, " " ,b, " ", index)
 
 func check_override(index,m_size):
 	var check = 0
@@ -86,7 +86,7 @@ func check_override(index,m_size):
 	#print(m_size.x * m_size.y, " " , check)
 	if (m_size.x * m_size.y) <= check:
 		return true
-		print('return')
+		#print('return')
 	else:
 		return false
 

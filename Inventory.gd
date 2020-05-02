@@ -1,7 +1,7 @@
 tool
 extends Node2D
-var items_v = 10
-var items_h = 10
+var items_v = 15
+var items_h = 8
 var backpack = []
 
 #func _process(delta):

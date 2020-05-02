@@ -1,7 +1,7 @@
 tool
 extends Node2D
-var items_v = 15
-var items_h = 8
+var items_v = 20
+var items_h = 10
 var backpack = []
 
 #func _process(delta):
@@ -39,27 +39,14 @@ func _ready():
 func test_gen_random_stuff(button):
 	randomize()
 	button.modulate = Color(rand_range(0,1),rand_range(0,1),rand_range(0,1),1)
-	var gen = int(rand_range(0,10))
+	var gen = int(rand_range(0,3))
 	match gen:
 		1:
 			button.texture_normal = load("res://icon.png")
-			button.set_scale(Vector2(1,1))
-			button.size = Vector2(1,1)
-			process_filled_up_grids(button.index,button.size,true)
-		2:
-			button.texture_normal = load("res://icon.png")
-			button.set_scale(Vector2(2,2))
-			button.size = Vector2(2,2)
-			process_filled_up_grids(button.index,button.size,true)
-		3:
-			button.texture_normal = load("res://icon.png")
-			button.set_scale(Vector2(1,2))
-			button.size = Vector2(1,2)
-			process_filled_up_grids(button.index,button.size,true)
-		4:
-			button.texture_normal = load("res://icon.png")
-			button.set_scale(Vector2(2,1))
-			button.size = Vector2(2,1)
+			var size_x = round(rand_range(1,2))
+			var size_y = round(rand_range(1,2))
+			button.set_scale(Vector2(size_x,size_y))
+			button.size = Vector2(size_x,size_y)
 			process_filled_up_grids(button.index,button.size,true)
 
 func pos_to_index(y,x):

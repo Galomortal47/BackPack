@@ -73,8 +73,21 @@ func spawn_item(size,texture_normal,_modulate):
 	if get_parent().get_node("MouseCurso").texture == null:
 		get_parent().get_node("MouseCurso").size = size
 		get_parent().get_node("MouseCurso").set_scale(size)
-		get_parent().get_node("MouseCurso").texture = load("res://Item/texts/" + texture_normal+ ".png")
+		get_parent().get_node("MouseCurso").texture = texture_normal
 		get_parent().get_node("MouseCurso").modulate = _modulate
+
+func drop_item():
+	if not get_parent().get_node("MouseCurso").texture == null:
+		var item = load('res://Item/Item.tscn').instance()
+		item.rand = false
+		item.pick = false
+		var player = get_parent().get_parent().get_parent().get_parent()
+		item.set_global_position(player.get_global_position())
+		item.size = get_parent().get_node("MouseCurso").size
+		item.icon = get_parent().get_node("MouseCurso").texture 
+		item.color = get_parent().get_node("MouseCurso").modulate
+		get_parent().get_node("MouseCurso").texture = null
+		get_node('/root').get_child(0).add_child(item)
 
 func on_button_down(index,size):
 	#print(index, "  " ,size)
@@ -101,3 +114,12 @@ func on_button_up(index,size):
 		get_parent().get_node("MouseCurso").texture = null
 		#print(index,m_size)
 		process_filled_up_grids(index,m_size,true)
+
+
+func _on_Drop_button_down():
+	drop_item()
+	pass # Replace with function body.
+
+
+func _on_Use_button_down():
+	pass # Replace with function body.

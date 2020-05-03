@@ -13,7 +13,6 @@ func _physics_process(delta):
 		show()
 	if follow:
 		set_global_position(get_global_mouse_position())
-#	pass
 
 func _on_Drop_button_down():
 	follow = true

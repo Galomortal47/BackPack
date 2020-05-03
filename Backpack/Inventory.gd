@@ -1,7 +1,7 @@
 tool
 extends Node2D
-var items_v = 20
-var items_h = 10
+var items_v = 12
+var items_h = 6
 var backpack = []
 
 func _ready():
@@ -22,8 +22,12 @@ func _ready():
 			button.connect("index_button_down", self, "on_button_down")
 			button.connect("index_button_up", self, "on_button_up")
 			button.set_size(Vector2(64,64))
-			var label = Label.new()
-			button.add_child(label)
+			var sprite = Sprite.new()
+			sprite.texture = load('res://Item/texts/select.png')
+			sprite.centered = false
+			sprite.hide()
+			sprite.z_index = 100
+			button.add_child(sprite)
 			add_child(button)
 	pass
 
@@ -39,7 +43,6 @@ func process_filled_up_grids(index,size,remove_add):
 	var x = index_to_pos(index).x
 	var y = index_to_pos(index).y
 	var r = pos_to_index(y,x)
-	#backpack[x][y] = index
 	if remove_add:
 		if not x+size.x > items_v and not y+size.y > items_h:
 			for a in range(x,x+size.x):
@@ -50,7 +53,6 @@ func process_filled_up_grids(index,size,remove_add):
 			for a in range(x,x+size.x):
 				for b in range(y,y+size.y):
 					backpack[a][b] = null
-					#print(a, " " ,b, " ", index)
 
 func check_override(index,m_size):
 	var check = 0
@@ -61,20 +63,18 @@ func check_override(index,m_size):
 			for b in range(y,y+m_size.y):
 				if backpack[a][b] == null:
 					check += 1
-	#print(m_size.x * m_size.y, " " , check)
 	if (m_size.x * m_size.y) <= check:
 		return true
-		#print('return')
 	else:
 		return false
-		
 
 func spawn_item(size,texture_normal,_modulate):
 	if get_parent().get_node("MouseCurso").texture == null:
 		get_parent().get_node("MouseCurso").size = size
 		get_parent().get_node("MouseCurso").set_scale(size)
 		get_parent().get_node("MouseCurso").texture = texture_normal
-		get_parent().get_node("MouseCurso").modulate = _modulate
+		get_parent().get_node("MouseCurso").self_modulate = _modulate
+		get_parent().get_node("MouseCurso/select").show()
 
 func drop_item():
 	if not get_parent().get_node("MouseCurso").texture == null:
@@ -84,13 +84,13 @@ func drop_item():
 		var player = get_parent().get_parent().get_parent().get_parent()
 		item.set_global_position(player.get_global_position())
 		item.size = get_parent().get_node("MouseCurso").size
-		item.icon = get_parent().get_node("MouseCurso").texture 
-		item.color = get_parent().get_node("MouseCurso").modulate
+		item.icon = get_parent().get_node("MouseCurso").texture
+		item.color = get_parent().get_node("MouseCurso").self_modulate
 		get_parent().get_node("MouseCurso").texture = null
+		get_parent().get_node("MouseCurso/select").hide()
 		get_node('/root').get_child(0).add_child(item)
 
 func on_button_down(index,size):
-	#print(index, "  " ,size)
 	var select
 	if not backpack[index_to_pos(index).x][index_to_pos(index).y] == null:
 		select = get_child(backpack[index_to_pos(index).x][index_to_pos(index).y])
@@ -98,28 +98,28 @@ func on_button_down(index,size):
 		get_parent().get_node("MouseCurso").size = select.size
 		get_parent().get_node("MouseCurso").set_scale(select.size)
 		get_parent().get_node("MouseCurso").texture = select.texture_normal
-		get_parent().get_node("MouseCurso").modulate = select.modulate
+		get_parent().get_node("MouseCurso").self_modulate = select.self_modulate
 		select.texture_normal = null
-		#print(get_child(index).size)
+		select.get_child(0).hide()
+		get_parent().get_node("MouseCurso/select").show()
+		get_child(index).get_child(0).hide()
 		process_filled_up_grids(backpack[index_to_pos(index).x][index_to_pos(index).y],select.size,false)
 
 func on_button_up(index,size):
-#	print(index)
 	var m_size = get_parent().get_node("MouseCurso").size
 	if not get_parent().get_node("MouseCurso").texture == null and check_override(index,m_size):
 		get_child(index).texture_normal = get_parent().get_node("MouseCurso").texture
 		get_child(index).size = m_size
 		get_child(index).set_scale(m_size)
-		get_child(index).modulate = get_parent().get_node("MouseCurso").modulate
+		get_child(index).self_modulate = get_parent().get_node("MouseCurso").self_modulate
 		get_parent().get_node("MouseCurso").texture = null
-		#print(index,m_size)
+		get_child(index).get_child(0).show()
+		get_parent().get_node("MouseCurso/select").hide()
 		process_filled_up_grids(index,m_size,true)
-
 
 func _on_Drop_button_down():
 	drop_item()
 	pass # Replace with function body.
-
 
 func _on_Use_button_down():
 	pass # Replace with function body.

@@ -1,0 +1,40 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://GameOver/ScoreInt.gd" type="Script" id=1]
+[ext_resource path="res://GameOver/playagain.gd" type="Script" id=2]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Label" type="Label" parent="."]
+modulate = Color( 0, 0, 0, 1 )
+margin_left = 300.939
+margin_top = 181.764
+margin_right = 374.939
+margin_bottom = 195.764
+text = "Game OVer"
+
+[node name="Score" type="Label" parent="Label"]
+margin_left = -14.8826
+margin_top = 13.4057
+margin_right = 79.1174
+margin_bottom = 27.4057
+text = "you score was:"
+
+[node name="ScoreInt" type="Label" parent="Label"]
+margin_left = 80.8835
+margin_top = 14.0528
+margin_right = 120.884
+margin_bottom = 28.0528
+text = "0"
+script = ExtResource( 1 )
+
+[node name="play again" type="Button" parent="Label"]
+margin_top = 24.265
+margin_right = 75.0
+margin_bottom = 44.265
+text = "play again"
+flat = true
+script = ExtResource( 2 )
+next = "res://Tests/TestZone.tscn"
+
+[connection signal="button_down" from="Label/play again" to="Label/play again" method="_on_play_again_button_down"]
